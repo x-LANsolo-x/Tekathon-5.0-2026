@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{margin:0;padding:0;background:transparent;font-family:var(--font-sans,"Anthropic Sans",sans-serif)}
+.wrap{padding:16px 0;overflow-x:auto}
+svg{display:block;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+<svg width="100%" viewBox="0 0 1080 1820" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Hackathon Platform Flowchart</title>
+<desc>Full system flowchart showing three portals: Team Registration, Evaluator Portal, and Super Admin Portal with all flows and interactions.</desc>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrowB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#2E75B6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrowG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#0F6E56" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrowO" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#854F0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- ============ LEGEND ============ -->
+<rect x="20" y="20" width="1040" height="48" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+<rect x="36" y="34" width="14" height="14" rx="3" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="56" y="44" font-size="12" fill="#2C2C2A" font-family="inherit">Team / Participant</text>
+<rect x="200" y="34" width="14" height="14" rx="3" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="220" y="44" font-size="12" fill="#2C2C2A" font-family="inherit">Evaluator (Admin)</text>
+<rect x="380" y="34" width="14" height="14" rx="3" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="400" y="44" font-size="12" fill="#2C2C2A" font-family="inherit">Super Admin</text>
+<rect x="530" y="34" width="14" height="14" rx="3" fill="#FBEAF0" stroke="#993556" stroke-width="0.5"/>
+<text x="550" y="44" font-size="12" fill="#2C2C2A" font-family="inherit">System / Auto</text>
+<rect x="680" y="34" width="14" height="14" rx="3" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="700" y="44" font-size="12" fill="#2C2C2A" font-family="inherit">Decision</text>
+
+<!-- =============================================================== -->
+<!-- COLUMN 1: TEAM REGISTRATION (left ~x=20..360) -->
+<!-- =============================================================== -->
+
+<!-- Section header -->
+<rect x="20" y="84" width="340" height="32" rx="6" fill="#185FA5"/>
+<text x="190" y="104" text-anchor="middle" font-size="14" font-weight="500" fill="#E6F1FB" font-family="inherit">TEAM REGISTRATION PORTAL</text>
+
+<!-- Start -->
+<rect x="100" y="132" width="180" height="40" rx="20" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+<text x="190" y="156" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C" font-family="inherit">Landing Page</text>
+<line x1="190" y1="172" x2="190" y2="192" stroke="#185FA5" stroke-width="1" marker-end="url(#arrowB)"/>
+
+<!-- Fill Form -->
+<rect x="70" y="192" width="240" height="52" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+<text x="190" y="212" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C" font-family="inherit">Fill Registration Form</text>
+<text x="190" y="230" text-anchor="middle" font-size="11" fill="#185FA5" font-family="inherit">Team details · Members · PS · PPT upload</text>
+<line x1="190" y1="244" x2="190" y2="264" stroke="#185FA5" stroke-width="1" marker-end="url(#arrowB)"/>
+
+<!-- Validate email domain -->
+<polygon points="190,264 280,294 190,324 100,294" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="190" y="290" text-anchor="middle" font-size="12" fill="#2C2C2A" font-family="inherit">@cuchd.in</text>
+<text x="190" y="306" text-anchor="middle" font-size="12" fill="#2C2C2A" font-family="inherit">email?</text>
+<!-- No path -->
+<line x1="100" y1="294" x2="36" y2="294" stroke="#E24B4A" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="62" y="288" text-anchor="middle" font-size="11" fill="#E24B4A" font-family="inherit">No</text>
+<rect x="20" y="304" width="16" height="16" rx="3" fill="none"/><!-- placeholder -->
+<!-- Show error inline -->
+<rect x="20" y="278" width="72" height="28" rx="6" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+<text x="56" y="296" text-anchor="middle" font-size="11" fill="#A32D2D" font-family="inherit">Show error</text>
+
+<line x1="190" y1="324" x2="190" y2="344" stroke="#185FA5" stroke-width="1" marker-end="url(#arrowB)"/>
+<text x="200" y="338" font-size="11" fill="#185FA5" font-family="inherit">Yes</text>
+
+<!-- Girl member check -->
+<polygon points="190,344 290,374 190,404 90,374" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="190" y="370" text-anchor="middle" font-size="12" fill="#2C2C2A" font-family="inherit">≥1 female</text>
+<text x="190" y="386" text-anchor="middle" font-size="12" fill="#2C2C2A" font-family="inherit">member?</text>
+<line x1="90" y1="374" x2="36" y2="374" stroke="#E24B4A" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="58" y="368" text-anchor="middle" font-size="11" fill="#E24B4A" font-family="inherit">No</text>
+<rect x="20" y="358" width="72" height="28" rx="6" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+<text x="56" y="376" text-anchor="middle" font-size="11" fill="#A32D2D" font-family="inherit">Show error</text>
+
+<line x1="190" y1="404" x2="190" y2="424" stroke="#185FA5" stroke-width="1" marker-end="url(#arrowB)"/>
+<text x="200" y="418" font-size="11" fill="#185FA5" font-family="inherit">Yes</text>
+
+<!-- PDF upload check -->
+<polygon points="190,424 290,454 190,484 90,454" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="190" y="450" text-anchor="middle" font-size="12" fill="#2C2C2A" font-family="inherit">PDF file</text>
+<text x="190" y="466" text-anchor="middle" font-size="12" fill="#2C2C2A" font-family="inherit">uploaded?</text>
+<line x1="90" y1="454" x2="36" y2="454" stroke="#E24B4A" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="58" y="448" text-anchor="middle" font-size="11" fill="#E24B4A" font-family="inherit">No</text>
+<rect x="20" y="438" width="72" height="28" rx="6" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+<text x="56" y="456" text-anchor="middle" font-size="11" fill="#A32D2D" font-family="inherit">Show error</text>
+
+<line x1="190" y1="484" x2="190" y2="504" stroke="#185FA5" stroke-width="1" marker-end="url(#arrowB)"/>
+<text x="200" y="498" font-size="11" fill="#185FA5" font-family="inherit">Yes</text>
+
+<!-- Save to DB -->
+<rect x="80" y="504" width="220" height="44" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+<text x="190" y="524" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C" font-family="inherit">Save to Database</text>
+<text x="190" y="540" text-anchor="middle" font-size="11" fill="#185FA5" font-family="inherit">Store data · Upload PDF to Drive</text>
+<line x1="190" y1="548" x2="190" y2="568" stroke="#185FA5" stroke-width="1" marker-end="url(#arrowB)"/>
+
+<!-- Send confirmation email (system) -->
+<rect x="70" y="568" width="240" height="44" rx="8" fill="#FBEAF0" stroke="#993556" stroke-width="0.8"/>
+<text x="190" y="588" text-anchor="middle" font-size="13" font-weight="500" fill="#72243E" font-family="inherit">NodeMailer: Send Email</text>
+<text x="190" y="604" text-anchor="middle" font-size="11" fill="#993556" font-family="inherit">Confirmation + form copy + Reg ID</text>
+<line x1="190" y1="612" x2="190" y2="632" stroke="#185FA5" stroke-width="1" marker-end="url(#arrowB)"/>
+
+<!-- Success page -->
+<rect x="90" y="632" width="200" height="40" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+<text x="190" y="648" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C" font-family="inherit">Registration Success</text>
+<text x="190" y="662" text-anchor="middle" font-size="11" fill="#185FA5" font-family="inherit">Show confirmation page</text>
+
+<!-- END TEAM -->
+<rect x="120" y="688" width="140" height="36" rx="18" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+<text x="190" y="710" text-anchor="middle" font-size="12" font-weight="500" fill="#0C447C" font-family="inherit">Done ✓</text>
+<line x1="190" y1="672" x2="190" y2="688" stroke="#185FA5" stroke-width="1" marker-end="url(#arrowB)"/>
+
+<!-- =============================================================== -->
+<!-- COLUMN 2: EVALUATOR PORTAL (middle ~x=380..740) -->
+<!-- =============================================================== -->
+
+<rect x="380" y="84" width="320" height="32" rx="6" fill="#0F6E56"/>
+<text x="540" y="104" text-anchor="middle" font-size="14" font-weight="500" fill="#E1F5EE" font-family="inherit">EVALUATOR (ADMIN) PORTAL</text>
+
+<!-- Evaluator: Register -->
+<rect x="430" y="132" width="220" height="44" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text x="540" y="152" text-anchor="middle" font-size="13" font-weight="500" fill="#085041" font-family="inherit">Evaluator Registration</text>
+<text x="540" y="168" text-anchor="middle" font-size="11" fill="#0F6E56" font-family="inherit">Email + name</text>
+<line x1="540" y1="176" x2="540" y2="196" stroke="#0F6E56" stroke-width="1" marker-end="url(#arrowG)"/>
+
+<!-- OTP -->
+<rect x="420" y="196" width="240" height="44" rx="8" fill="#FBEAF0" stroke="#993556" stroke-width="0.8"/>
+<text x="540" y="216" text-anchor="middle" font-size="13" font-weight="500" fill="#72243E" font-family="inherit">NodeMailer: Send OTP</text>
+<text x="540" y="232" text-anchor="middle" font-size="11" fill="#993556" font-family="inherit">Time-limited (10 min)</text>
+<line x1="540" y1="240" x2="540" y2="260" stroke="#0F6E56" stroke-width="1" marker-end="url(#arrowG)"/>
+
+<!-- OTP verify -->
+<polygon points="540,260 640,290 540,320 440,290" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="540" y="286" text-anchor="middle" font-size="12" fill="#2C2C2A" font-family="inherit">OTP</text>
+<text x="540" y="302" text-anchor="middle" font-size="12" fill="#2C2C2A" font-family="inherit">verified?</text>
+<line x1="640" y1="290" x2="670" y2="290" stroke="#E24B4A" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="658" y="284" font-size="11" fill="#E24B4A" font-family="inherit">No</text>
+<rect x="672" y="276" width="76" height="28" rx="6" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+<text x="710" y="294" text-anchor="middle" font-size="11" fill="#A32D2D" font-family="inherit">Resend OTP</text>
+
+<line x1="540" y1="320" x2="540" y2="340" stroke="#0F6E56" stroke-width="1" marker-end="url(#arrowG)"/>
+<text x="550" y="334" font-size="11" fill="#0F6E56" font-family="inherit">Yes</text>
+
+<!-- Send password -->
+<rect x="420" y="340" width="240" height="44" rx="8" fill="#FBEAF0" stroke="#993556" stroke-width="0.8"/>
+<text x="540" y="360" text-anchor="middle" font-size="13" font-weight="500" fill="#72243E" font-family="inherit">NodeMailer: Send Password</text>
+<text x="540" y="376" text-anchor="middle" font-size="11" fill="#993556" font-family="inherit">System-generated password</text>
+<line x1="540" y1="384" x2="540" y2="404" stroke="#0F6E56" stroke-width="1" marker-end="url(#arrowG)"/>
+
+<!-- Login -->
+<rect x="440" y="404" width="200" height="44" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text x="540" y="424" text-anchor="middle" font-size="13" font-weight="500" fill="#085041" font-family="inherit">Evaluator Login</text>
+<text x="540" y="440" text-anchor="middle" font-size="11" fill="#0F6E56" font-family="inherit">Email + generated password</text>
+<line x1="540" y1="448" x2="540" y2="468" stroke="#0F6E56" stroke-width="1" marker-end="url(#arrowG)"/>
+
+<!-- Dashboard -->
+<rect x="420" y="468" width="240" height="52" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text x="540" y="488" text-anchor="middle" font-size="13" font-weight="500" fill="#085041" font-family="inherit">Evaluator Dashboard</text>
+<text x="540" y="504" text-anchor="middle" font-size="11" fill="#0F6E56" font-family="inherit">View assigned teams only</text>
+<text x="540" y="516" text-anchor="middle" font-size="10" fill="#1D9E75" font-family="inherit">← Assignments come from Super Admin</text>
+<line x1="540" y1="520" x2="540" y2="540" stroke="#0F6E56" stroke-width="1" marker-end="url(#arrowG)"/>
+
+<!-- Team detail view -->
+<rect x="410" y="540" width="260" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text x="540" y="560" text-anchor="middle" font-size="13" font-weight="500" fill="#085041" font-family="inherit">Open Team Detail</text>
+<text x="540" y="576" text-anchor="middle" font-size="11" fill="#0F6E56" font-family="inherit">Team name · PS · Inline PDF viewer</text>
+<text x="540" y="589" text-anchor="middle" font-size="10" fill="#1D9E75" font-family="inherit">(PDF viewed inside portal, no download)</text>
+<line x1="540" y1="596" x2="540" y2="616" stroke="#0F6E56" stroke-width="1" marker-end="url(#arrowG)"/>
+
+<!-- Scoring -->
+<rect x="420" y="616" width="240" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text x="540" y="636" text-anchor="middle" font-size="13" font-weight="500" fill="#085041" font-family="inherit">Score the Team</text>
+<text x="540" y="652" text-anchor="middle" font-size="11" fill="#0F6E56" font-family="inherit">5 sections × 20 marks = 100</text>
+<text x="540" y="665" text-anchor="middle" font-size="10" fill="#1D9E75" font-family="inherit">Problem · Innovation · Tech · Pres · Impact</text>
+<line x1="540" y1="672" x2="540" y2="692" stroke="#0F6E56" stroke-width="1" marker-end="url(#arrowG)"/>
+
+<!-- Submit -->
+<polygon points="540,692 630,718 540,744 450,718" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="540" y="714" text-anchor="middle" font-size="12" fill="#2C2C2A" font-family="inherit">All 5 sections</text>
+<text x="540" y="730" text-anchor="middle" font-size="12" fill="#2C2C2A" font-family="inherit">scored?</text>
+<line x1="630" y1="718" x2="680" y2="718" stroke="#E24B4A" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="658" y="712" font-size="11" fill="#E24B4A" font-family="inherit">No</text>
+<rect x="682" y="703" width="76" height="28" rx="6" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+<text x="720" y="721" text-anchor="middle" font-size="11" fill="#A32D2D" font-family="inherit">Prompt fill</text>
+
+<line x1="540" y1="744" x2="540" y2="764" stroke="#0F6E56" stroke-width="1" marker-end="url(#arrowG)"/>
+<text x="550" y="758" font-size="11" fill="#0F6E56" font-family="inherit">Yes</text>
+
+<!-- Save score -->
+<rect x="430" y="764" width="220" height="40" rx="8" fill="#FBEAF0" stroke="#993556" stroke-width="0.8"/>
+<text x="540" y="784" text-anchor="middle" font-size="13" font-weight="500" fill="#72243E" font-family="inherit">Save Score to DB</text>
+<text x="540" y="797" text-anchor="middle" font-size="11" fill="#993556" font-family="inherit">Locked after submission</text>
+<line x1="540" y1="804" x2="540" y2="824" stroke="#0F6E56" stroke-width="1" marker-end="url(#arrowG)"/>
+
+<!-- Next team -->
+<rect x="440" y="824" width="200" height="36" rx="18" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text x="540" y="844" text-anchor="middle" font-size="12" font-weight="500" fill="#085041" font-family="inherit">Next Team / Done ✓</text>
+
+<!-- =============================================================== -->
+<!-- COLUMN 3: SUPER ADMIN (right ~x=760..1060) -->
+<!-- =============================================================== -->
+
+<rect x="760" y="84" width="300" height="32" rx="6" fill="#854F0B"/>
+<text x="910" y="104" text-anchor="middle" font-size="14" font-weight="500" fill="#FAEEDA" font-family="inherit">SUPER ADMIN PORTAL</text>
+
+<!-- Login -->
+<rect x="820" y="132" width="180" height="44" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="910" y="152" text-anchor="middle" font-size="13" font-weight="500" fill="#412402" font-family="inherit">Super Admin Login</text>
+<text x="910" y="168" text-anchor="middle" font-size="11" fill="#854F0B" font-family="inherit">Password-authenticated</text>
+<line x1="910" y1="176" x2="910" y2="196" stroke="#854F0B" stroke-width="1" marker-end="url(#arrowO)"/>
+
+<!-- Auth check -->
+<polygon points="910,196 1000,224 910,252 820,224" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="910" y="220" text-anchor="middle" font-size="12" fill="#2C2C2A" font-family="inherit">Auth</text>
+<text x="910" y="236" text-anchor="middle" font-size="12" fill="#2C2C2A" font-family="inherit">valid?</text>
+<line x1="820" y1="224" x2="775" y2="224" stroke="#E24B4A" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="793" y="218" font-size="11" fill="#E24B4A" font-family="inherit">No</text>
+<rect x="756" y="210" width="18" height="28" rx="3" fill="none"/>
+<rect x="759" y="210" width="12" height="28" rx="3" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+<text x="768" y="230" text-anchor="middle" font-size="9" fill="#A32D2D" font-family="inherit" writing-mode="tb">deny</text>
+
+<line x1="910" y1="252" x2="910" y2="272" stroke="#854F0B" stroke-width="1" marker-end="url(#arrowO)"/>
+<text x="920" y="266" font-size="11" fill="#854F0B" font-family="inherit">Yes</text>
+
+<!-- Session start -->
+<rect x="800" y="272" width="220" height="44" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="910" y="292" text-anchor="middle" font-size="13" font-weight="500" fill="#412402" font-family="inherit">Session Started</text>
+<text x="910" y="308" text-anchor="middle" font-size="11" fill="#854F0B" font-family="inherit">1-hr inactivity → auto logout</text>
+<line x1="910" y1="316" x2="910" y2="340" stroke="#854F0B" stroke-width="1" marker-end="url(#arrowO)"/>
+
+<!-- Dashboard -->
+<rect x="790" y="340" width="240" height="36" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="910" y="362" text-anchor="middle" font-size="13" font-weight="500" fill="#412402" font-family="inherit">Super Admin Dashboard</text>
+<line x1="910" y1="376" x2="910" y2="396" stroke="#854F0B" stroke-width="1" marker-end="url(#arrowO)"/>
+
+<!-- 5 sections fanning out -->
+<!-- Section tabs header -->
+<rect x="762" y="396" width="296" height="28" rx="4" fill="#EF9F27" stroke="#BA7517" stroke-width="0.5"/>
+<text x="910" y="414" text-anchor="middle" font-size="12" font-weight="500" fill="#412402" font-family="inherit">5 Portal Sections (tabs)</text>
+
+<!-- Lines to each section -->
+<line x1="910" y1="424" x2="910" y2="444" stroke="#854F0B" stroke-width="0.5"/>
+<line x1="780" y1="444" x2="1040" y2="444" stroke="#854F0B" stroke-width="0.5"/>
+<line x1="800" y1="444" x2="800" y2="464" stroke="#854F0B" stroke-width="0.5"/>
+<line x1="868" y1="444" x2="868" y2="464" stroke="#854F0B" stroke-width="0.5"/>
+<line x1="938" y1="444" x2="938" y2="464" stroke="#854F0B" stroke-width="0.5"/>
+<line x1="1006" y1="444" x2="1006" y2="464" stroke="#854F0B" stroke-width="0.5"/>
+
+<!-- Section A: Evaluators List -->
+<rect x="760" y="464" width="72" height="56" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="796" y="484" text-anchor="middle" font-size="11" font-weight="500" fill="#412402" font-family="inherit">Evaluator</text>
+<text x="796" y="498" text-anchor="middle" font-size="11" font-weight="500" fill="#412402" font-family="inherit">List</text>
+<text x="796" y="511" text-anchor="middle" font-size="10" fill="#854F0B" font-family="inherit">≤50</text>
+
+<!-- Section B: PS List -->
+<rect x="832" y="464" width="72" height="56" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="868" y="484" text-anchor="middle" font-size="11" font-weight="500" fill="#412402" font-family="inherit">PS / Cat</text>
+<text x="868" y="498" text-anchor="middle" font-size="11" font-weight="500" fill="#412402" font-family="inherit">List</text>
+<text x="868" y="511" text-anchor="middle" font-size="10" fill="#854F0B" font-family="inherit">HW/SW</text>
+
+<!-- Section C: Teams -->
+<rect x="902" y="464" width="72" height="56" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="938" y="484" text-anchor="middle" font-size="11" font-weight="500" fill="#412402" font-family="inherit">All Teams</text>
+<text x="938" y="498" text-anchor="middle" font-size="11" font-weight="500" fill="#412402" font-family="inherit">List</text>
+<text x="938" y="511" text-anchor="middle" font-size="10" fill="#854F0B" font-family="inherit">≤2000</text>
+
+<!-- Section D: Assign -->
+<rect x="970" y="464" width="72" height="56" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="1006" y="484" text-anchor="middle" font-size="11" font-weight="500" fill="#412402" font-family="inherit">Assign</text>
+<text x="1006" y="498" text-anchor="middle" font-size="11" font-weight="500" fill="#412402" font-family="inherit">Teams</text>
+<text x="1006" y="511" text-anchor="middle" font-size="10" fill="#854F0B" font-family="inherit">by PS/cat</text>
+
+<!-- All merge back -->
+<line x1="800" y1="520" x2="800" y2="540" stroke="#854F0B" stroke-width="0.5"/>
+<line x1="868" y1="520" x2="868" y2="540" stroke="#854F0B" stroke-width="0.5"/>
+<line x1="938" y1="520" x2="938" y2="540" stroke="#854F0B" stroke-width="0.5"/>
+<line x1="1006" y1="520" x2="1006" y2="540" stroke="#854F0B" stroke-width="0.5"/>
+<line x1="800" y1="540" x2="1006" y2="540" stroke="#854F0B" stroke-width="0.5"/>
+<line x1="910" y1="540" x2="910" y2="560" stroke="#854F0B" stroke-width="1" marker-end="url(#arrowO)"/>
+
+<!-- Assign flow -->
+<rect x="800" y="560" width="220" height="52" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="910" y="580" text-anchor="middle" font-size="13" font-weight="500" fill="#412402" font-family="inherit">Assign Team → Evaluator</text>
+<text x="910" y="596" text-anchor="middle" font-size="11" fill="#854F0B" font-family="inherit">By PS, Category, or manual</text>
+<text x="910" y="609" text-anchor="middle" font-size="10" fill="#BA7517" font-family="inherit">Evaluator sees team in their dashboard</text>
+<line x1="910" y1="612" x2="910" y2="632" stroke="#854F0B" stroke-width="1" marker-end="url(#arrowO)"/>
+
+<!-- Cross-link: assignment visible to evaluator -->
+<line x1="800" y1="586" x2="660" y2="488" stroke="#BA7517" stroke-width="0.8" stroke-dasharray="5 3" marker-end="url(#arrowO)"/>
+<text x="730" y="530" text-anchor="middle" font-size="10" fill="#BA7517" font-family="inherit" transform="rotate(-30,730,530)">assigns teams</text>
+
+<!-- Export -->
+<rect x="800" y="632" width="220" height="52" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="910" y="652" text-anchor="middle" font-size="13" font-weight="500" fill="#412402" font-family="inherit">Export to Excel (.xlsx)</text>
+<text x="910" y="668" text-anchor="middle" font-size="11" fill="#854F0B" font-family="inherit">Teams · Scores · Drive links</text>
+<text x="910" y="681" text-anchor="middle" font-size="10" fill="#BA7517" font-family="inherit">All PS · All evaluator data</text>
+<line x1="910" y1="684" x2="910" y2="704" stroke="#854F0B" stroke-width="1" marker-end="url(#arrowO)"/>
+
+<!-- Inactivity timer note -->
+<rect x="790" y="704" width="240" height="36" rx="18" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="910" y="726" text-anchor="middle" font-size="12" font-weight="500" fill="#412402" font-family="inherit">Continue or Auto-Logout ✓</text>
+
+<!-- =============================================================== -->
+<!-- BOTTOM: EMAIL SYSTEM OVERVIEW -->
+<!-- =============================================================== -->
+
+<rect x="20" y="900" width="1040" height="32" rx="6" fill="#72243E"/>
+<text x="540" y="920" text-anchor="middle" font-size="14" font-weight="500" fill="#FBEAF0" font-family="inherit">EMAIL SYSTEM (NodeMailer)</text>
+
+<rect x="40" y="948" width="200" height="56" rx="8" fill="#FBEAF0" stroke="#993556" stroke-width="0.8"/>
+<text x="140" y="968" text-anchor="middle" font-size="12" font-weight="500" fill="#72243E" font-family="inherit">Registration Confirm</text>
+<text x="140" y="984" text-anchor="middle" font-size="11" fill="#993556" font-family="inherit">→ Team Leader</text>
+<text x="140" y="997" text-anchor="middle" font-size="10" fill="#D4537E" font-family="inherit">Form copy + Reg ID</text>
+
+<rect x="270" y="948" width="200" height="56" rx="8" fill="#FBEAF0" stroke="#993556" stroke-width="0.8"/>
+<text x="370" y="968" text-anchor="middle" font-size="12" font-weight="500" fill="#72243E" font-family="inherit">OTP Email</text>
+<text x="370" y="984" text-anchor="middle" font-size="11" fill="#993556" font-family="inherit">→ Evaluator</text>
+<text x="370" y="997" text-anchor="middle" font-size="10" fill="#D4537E" font-family="inherit">10-min expiry</text>
+
+<rect x="500" y="948" width="200" height="56" rx="8" fill="#FBEAF0" stroke="#993556" stroke-width="0.8"/>
+<text x="600" y="968" text-anchor="middle" font-size="12" font-weight="500" fill="#72243E" font-family="inherit">Password Email</text>
+<text x="600" y="984" text-anchor="middle" font-size="11" fill="#993556" font-family="inherit">→ Evaluator (after OTP)</text>
+<text x="600" y="997" text-anchor="middle" font-size="10" fill="#D4537E" font-family="inherit">System-generated</text>
+
+<rect x="730" y="948" width="200" height="56" rx="8" fill="#FBEAF0" stroke="#993556" stroke-width="0.8"/>
+<text x="830" y="968" text-anchor="middle" font-size="12" font-weight="500" fill="#72243E" font-family="inherit">Password Reset</text>
+<text x="830" y="984" text-anchor="middle" font-size="11" fill="#993556" font-family="inherit">→ Evaluator request</text>
+<text x="830" y="997" text-anchor="middle" font-size="10" fill="#D4537E" font-family="inherit">New OTP flow</text>
+
+<!-- =============================================================== -->
+<!-- BOTTOM: DATA FLOW SUMMARY -->
+<!-- =============================================================== -->
+<rect x="20" y="1030" width="1040" height="32" rx="6" fill="#1F5C99"/>
+<text x="540" y="1050" text-anchor="middle" font-size="14" font-weight="500" fill="#E6F1FB" font-family="inherit">KEY CONSTRAINTS & BUSINESS RULES</text>
+
+<rect x="20" y="1078" width="490" height="180" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="265" y="1100" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C" font-family="inherit">Registration Rules</text>
+<text x="50" y="1122" font-size="12" fill="#185FA5" font-family="inherit">• Email must be @cuchd.in domain</text>
+<text x="50" y="1142" font-size="12" fill="#185FA5" font-family="inherit">• At least 1 female member (out of 6) required</text>
+<text x="50" y="1162" font-size="12" fill="#185FA5" font-family="inherit">• PPT must be uploaded as PDF only</text>
+<text x="50" y="1182" font-size="12" fill="#185FA5" font-family="inherit">• Members 2–6: UID, Department, Cluster required</text>
+<text x="50" y="1202" font-size="12" fill="#185FA5" font-family="inherit">• Problem Statement: searchable dropdown</text>
+<text x="50" y="1222" font-size="12" fill="#185FA5" font-family="inherit">• Max 2,000 team registrations total</text>
+<text x="50" y="1242" font-size="12" fill="#185FA5" font-family="inherit">• PPT template provided for download on page</text>
+
+<rect x="540" y="1078" width="520" height="180" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="800" y="1100" text-anchor="middle" font-size="13" font-weight="500" fill="#412402" font-family="inherit">Admin / System Rules</text>
+<text x="560" y="1122" font-size="12" fill="#854F0B" font-family="inherit">• Max 50 evaluators allowed</text>
+<text x="560" y="1142" font-size="12" fill="#854F0B" font-family="inherit">• Super Admin: 1-hr session inactivity timeout</text>
+<text x="560" y="1162" font-size="12" fill="#854F0B" font-family="inherit">• Scores locked after evaluator submits</text>
+<text x="560" y="1182" font-size="12" fill="#854F0B" font-family="inherit">• Evaluators see only their assigned teams</text>
+<text x="560" y="1202" font-size="12" fill="#854F0B" font-family="inherit">• Excel export includes Drive link per team PDF</text>
+<text x="560" y="1222" font-size="12" fill="#854F0B" font-family="inherit">• Super Admin assigns by PS, category, or manual</text>
+<text x="560" y="1242" font-size="12" fill="#854F0B" font-family="inherit">• OTPs expire after 10 minutes</text>
+
+<!-- =============================================================== -->
+<!-- TECH STACK STRIP -->
+<!-- =============================================================== -->
+<rect x="20" y="1282" width="1040" height="32" rx="6" fill="#3C3489"/>
+<text x="540" y="1302" text-anchor="middle" font-size="14" font-weight="500" fill="#EEEDFE" font-family="inherit">TECH STACK</text>
+
+<rect x="20" y="1328" width="170" height="64" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="105" y="1350" text-anchor="middle" font-size="12" font-weight="500" fill="#26215C" font-family="inherit">Frontend</text>
+<text x="105" y="1368" text-anchor="middle" font-size="11" fill="#534AB7" font-family="inherit">React.js / Next.js</text>
+<text x="105" y="1384" text-anchor="middle" font-size="10" fill="#7F77DD" font-family="inherit">react-select · react-pdf</text>
+
+<rect x="210" y="1328" width="170" height="64" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="295" y="1350" text-anchor="middle" font-size="12" font-weight="500" fill="#26215C" font-family="inherit">Backend</text>
+<text x="295" y="1368" text-anchor="middle" font-size="11" fill="#534AB7" font-family="inherit">Node.js + Express</text>
+<text x="295" y="1384" text-anchor="middle" font-size="10" fill="#7F77DD" font-family="inherit">bcrypt · express-session</text>
+
+<rect x="400" y="1328" width="170" height="64" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="485" y="1350" text-anchor="middle" font-size="12" font-weight="500" fill="#26215C" font-family="inherit">Database</text>
+<text x="485" y="1368" text-anchor="middle" font-size="11" fill="#534AB7" font-family="inherit">PostgreSQL / MongoDB</text>
+<text x="485" y="1384" text-anchor="middle" font-size="10" fill="#7F77DD" font-family="inherit">Teams · Scores · PS</text>
+
+<rect x="590" y="1328" width="170" height="64" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="675" y="1350" text-anchor="middle" font-size="12" font-weight="500" fill="#26215C" font-family="inherit">Email</text>
+<text x="675" y="1368" text-anchor="middle" font-size="11" fill="#534AB7" font-family="inherit">NodeMailer (SMTP)</text>
+<text x="675" y="1384" text-anchor="middle" font-size="10" fill="#7F77DD" font-family="inherit">OTP · Confirm · Password</text>
+
+<rect x="780" y="1328" width="170" height="64" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="865" y="1350" text-anchor="middle" font-size="12" font-weight="500" fill="#26215C" font-family="inherit">File / Export</text>
+<text x="865" y="1368" text-anchor="middle" font-size="11" fill="#534AB7" font-family="inherit">Google Drive / S3</text>
+<text x="865" y="1384" text-anchor="middle" font-size="10" fill="#7F77DD" font-family="inherit">exceljs · xlsx</text>
+
+<!-- ROUTES STRIP -->
+<rect x="20" y="1420" width="1040" height="32" rx="6" fill="#3B6D11"/>
+<text x="540" y="1440" text-anchor="middle" font-size="14" font-weight="500" fill="#EAF3DE" font-family="inherit">PORTAL ROUTES</text>
+
+<rect x="20" y="1466" width="180" height="52" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+<text x="110" y="1486" text-anchor="middle" font-size="12" font-weight="500" fill="#173404" font-family="inherit">/</text>
+<text x="110" y="1502" text-anchor="middle" font-size="11" fill="#3B6D11" font-family="inherit">Landing · PPT template</text>
+<text x="110" y="1514" text-anchor="middle" font-size="10" fill="#639922" font-family="inherit">Public</text>
+
+<rect x="215" y="1466" width="180" height="52" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+<text x="305" y="1486" text-anchor="middle" font-size="12" font-weight="500" fill="#173404" font-family="inherit">/register</text>
+<text x="305" y="1502" text-anchor="middle" font-size="11" fill="#3B6D11" font-family="inherit">Registration form</text>
+<text x="305" y="1514" text-anchor="middle" font-size="10" fill="#639922" font-family="inherit">Public</text>
+
+<rect x="410" y="1466" width="180" height="52" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+<text x="500" y="1486" text-anchor="middle" font-size="12" font-weight="500" fill="#173404" font-family="inherit">/evaluator/login</text>
+<text x="500" y="1502" text-anchor="middle" font-size="11" fill="#3B6D11" font-family="inherit">Evaluator portal login</text>
+<text x="500" y="1514" text-anchor="middle" font-size="10" fill="#639922" font-family="inherit">Protected</text>
+
+<rect x="605" y="1466" width="200" height="52" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+<text x="705" y="1486" text-anchor="middle" font-size="12" font-weight="500" fill="#173404" font-family="inherit">/evaluator/dashboard</text>
+<text x="705" y="1502" text-anchor="middle" font-size="11" fill="#3B6D11" font-family="inherit">Score assigned teams</text>
+<text x="705" y="1514" text-anchor="middle" font-size="10" fill="#639922" font-family="inherit">Auth required</text>
+
+<rect x="820" y="1466" width="240" height="52" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+<text x="940" y="1486" text-anchor="middle" font-size="12" font-weight="500" fill="#173404" font-family="inherit">/superadmin/dashboard</text>
+<text x="940" y="1502" text-anchor="middle" font-size="11" fill="#3B6D11" font-family="inherit">Full admin control</text>
+<text x="940" y="1514" text-anchor="middle" font-size="10" fill="#639922" font-family="inherit">Password + session auth</text>
+
+<!-- Footer note -->
+<rect x="20" y="1540" width="1040" height="32" rx="6" fill="#D3D1C7" stroke="#B4B2A9" stroke-width="0.5"/>
+<text x="540" y="1560" text-anchor="middle" font-size="12" fill="#444441" font-family="inherit">Hackathon Registration &amp; Evaluation Platform — Full System Flowchart  |  3 Roles · 2,000 teams · 50 evaluators · 100-mark scoring</text>
+
+</svg>
+</div>
+</body>
+</html>
