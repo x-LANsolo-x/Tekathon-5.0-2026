@@ -22,7 +22,8 @@ app.use(helmet({
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
-  message: { error: 'Too many requests from this IP, please try again after 15 minutes' }
+  message: { error: 'Too many requests from this IP, please try again after 15 minutes' },
+  skip: (req) => req.method === 'OPTIONS'
 });
 app.use('/api/', limiter);
 
@@ -58,7 +59,8 @@ app.use(strictStringValidation);
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 5, // strictly 5 attempts
-  message: { error: 'Maximum authentication attempts exceeded. Try again in 15 minutes.' }
+  message: { error: 'Maximum authentication attempts exceeded. Try again in 15 minutes.' },
+  skip: (req) => req.method === 'OPTIONS'
 });
 
 // Apply authLimiter to sensitive endpoints
