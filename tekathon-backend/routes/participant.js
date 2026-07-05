@@ -44,7 +44,7 @@ const otpStore = new Map(); // email -> { code, leaderId, expiry }
 // Real email function via Google Apps Script (100% Free, Bypasses Render Block)
 async function sendOTPEmail(email, code) {
   try {
-    const res = await fetch('https://script.google.com/macros/s/AKfycbynC5sZmMjsZm_gAyG0kPGVATpgaIppz70SODSV5n6Bz0BxSiImBYablRqDmfYX7IlHyg/exec', {
+    const res = await fetch('https://script.google.com/macros/s/AKfycbyu6xqnCWuzxxPboyLc-HoItcZHpo0g4gPxUAWGHfI4noZL5-PAi6Lil53uUEcAqaCW/exec', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

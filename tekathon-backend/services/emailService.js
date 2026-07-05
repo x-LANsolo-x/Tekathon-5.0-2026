@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbynC5sZmMjsZm_gAyG0kPGVATpgaIppz70SODSV5n6Bz0BxSiImBYablRqDmfYX7IlHyg/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbyu6xqnCWuzxxPboyLc-HoItcZHpo0g4gPxUAWGHfI4noZL5-PAi6Lil53uUEcAqaCW/exec';
 
 async function sendGAS(toEmail, subject, htmlBody) {
   try {
