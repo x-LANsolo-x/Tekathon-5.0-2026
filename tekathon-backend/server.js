@@ -90,9 +90,14 @@ app.use('/api/participant', participantRoutes);
 app.use('/api/evaluator', evaluatorRoutes);
 app.use('/api/superadmin', superadminRoutes);
 
-// Health Check for UptimeRobot
+// Health Check for UptimeRobot (Explicit Path)
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'active', time: new Date() });
+});
+
+// Root route (Fallback for UptimeRobot if they forget the path)
+app.get('/', (req, res) => {
+  res.status(200).send('Tekathon 5.0 Backend is Alive');
 });
 
 // Server Connection (Database is Google Sheets now)
