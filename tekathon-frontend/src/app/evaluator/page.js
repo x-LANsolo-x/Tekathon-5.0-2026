@@ -11,6 +11,8 @@ if (typeof window !== 'undefined') {
   });
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 export default function EvaluatorPanel() {
   const [view, setView] = useState('login'); // login | otp | reset-password | dashboard | eval
   const [evalTeam, setEvalTeam] = useState(null);
@@ -32,7 +34,7 @@ export default function EvaluatorPanel() {
 
   const fetchTeams = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`);
+      const res = await fetch(`${API_URL}/api/evaluator/teams`, { credentials: 'include' });
       const data = await res.json();
       if(data.success) {
         setTeams(data.teams);
@@ -76,7 +78,7 @@ export default function EvaluatorPanel() {
       return alert("New passwords do not match.");
     }
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/evaluator/password`, { credentials: 'include',
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ currentPassword: passwordForm.currentPassword, newPassword: passwordForm.newPassword })
@@ -96,7 +98,7 @@ export default function EvaluatorPanel() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/evaluator/login`, { credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -118,7 +120,7 @@ export default function EvaluatorPanel() {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/evaluator/verify-otp`, { credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp })
@@ -141,7 +143,7 @@ export default function EvaluatorPanel() {
   const handleResetPassword = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/evaluator/reset-password`, { credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp, newPassword })
@@ -163,7 +165,7 @@ export default function EvaluatorPanel() {
   const handleLogout = async (bypassConfirm = false) => {
     if (!bypassConfirm && !window.confirm("Are you sure you want to log out?")) return;
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, { method: 'POST' });
+      await fetch(`${API_URL}/api/evaluator/logout`, { credentials: 'include', method: 'POST' });
       window.location.href = '/';
     } catch (err) {
       window.location.href = '/';
@@ -179,7 +181,7 @@ export default function EvaluatorPanel() {
 
   const submitEval = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/evaluator/score`, { credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ teamId: evalTeam.teamId, ...scores })
@@ -202,7 +204,7 @@ export default function EvaluatorPanel() {
   const handleFlagTeam = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/evaluator/teams/${evalTeam.teamId}/flag`, { credentials: 'include',
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ reason: flagReason })

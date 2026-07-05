@@ -11,6 +11,8 @@ if (typeof window !== 'undefined') {
   });
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 export default function SuperAdminPanel() {
   const [view, setView] = useState('login');
   const [activeTab, setActiveTab] = useState('overview');
@@ -50,8 +52,8 @@ export default function SuperAdminPanel() {
     try {
       setLoading(true);
       const [teamsRes, evalRes] = await Promise.all([
-        fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`),
-        fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`)
+        fetch(`${API_URL}/api/superadmin/teams`, { credentials: 'include' }),
+        fetch(`${API_URL}/api/superadmin/evaluators`, { credentials: 'include' })
       ]);
       const teamsData = await teamsRes.json();
       const evalData = await evalRes.json();
@@ -88,7 +90,7 @@ export default function SuperAdminPanel() {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, { method: 'POST' });
+      await fetch(`${API_URL}/api/superadmin/logout`, { credentials: 'include', method: 'POST' });
       window.location.href = '/';
     } catch (err) {
       window.location.href = '/';
@@ -112,7 +114,7 @@ export default function SuperAdminPanel() {
       return alert("New passwords do not match.");
     }
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/superadmin/password`, { credentials: 'include',
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ currentPassword: passwordForm.currentPassword, newPassword: passwordForm.newPassword })
@@ -132,7 +134,7 @@ export default function SuperAdminPanel() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/superadmin/login`, { credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: e.target.password.value })
@@ -149,7 +151,7 @@ export default function SuperAdminPanel() {
   };
 
   const handleExport = (type = 'all') => {
-    window.open(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, '_blank');
+    window.open(`http://localhost:5000/api/superadmin/export?type=${type}`, '_blank');
   };
 
   const handleSendMassEmail = async (e) => {
@@ -168,7 +170,7 @@ export default function SuperAdminPanel() {
     if (targetEmails.length === 0) return alert("No valid recipients found for this selection.");
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/superadmin/send-mass-email`, { credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ emails: targetEmails, subject: mailingForm.subject, body: mailingForm.body })
@@ -189,7 +191,7 @@ export default function SuperAdminPanel() {
     e.preventDefault();
     if (!window.confirm("Are you sure you want to add this evaluator?")) return;
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/superadmin/evaluators`, { credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newEvaluatorData)
@@ -224,7 +226,7 @@ export default function SuperAdminPanel() {
       if (hasErrors) {
         return alert("Please resolve all duplicate field errors before submitting.");
       }
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/superadmin/teams`, { credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTeamData)
@@ -246,7 +248,7 @@ export default function SuperAdminPanel() {
   const verifyMemberField = async (index, field, value) => {
     if (!value) return;
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/superadmin/verify-member`, { credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ [field]: value })
@@ -281,7 +283,7 @@ export default function SuperAdminPanel() {
   const handleDeleteTeam = async (teamId) => {
     if (!window.confirm(`Are you sure you want to delete team ${teamId}?`)) return;
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/superadmin/teams/${teamId}`, { credentials: 'include',
         method: 'DELETE'
       });
       const data = await res.json();
@@ -299,7 +301,7 @@ export default function SuperAdminPanel() {
       return alert('Please select an evaluator and at least one team.');
     }
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
+      const res = await fetch(`${API_URL}/api/superadmin/assign`, { credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(assignForm)
@@ -905,7 +907,7 @@ export default function SuperAdminPanel() {
                     <button className="btn-solid" style={{ background: 'transparent', border: '1px solid #ef4444', color: '#ef4444' }}><i className="fa-solid fa-unlock" style={{ marginRight: '0.5rem' }}></i> Unlock Scores</button>
                     <button className="btn-solid" style={{ background: 'linear-gradient(90deg, #10b981, #059669)', padding: '1rem 2rem', fontSize: '1.1rem' }} onClick={async () => {
                       try {
-                        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, { method: 'POST' });
+                        const res = await fetch(`${API_URL}/api/superadmin/publish`, { credentials: 'include', method: 'POST' });
                         const data = await res.json();
                         alert(data.message || data.error);
                       } catch(e) { alert('Publish failed.'); }
