@@ -3,6 +3,9 @@ import Script from 'next/script';
 export const metadata = {
   title: 'Tekathon 5.0 Platforms',
   description: 'Participant, Evaluator, and Super Admin Portals for Tekathon 5.0',
+  icons: {
+    icon: '/tekathon-logo.png',
+  }
 };
 
 export default function RootLayout({ children }) {
