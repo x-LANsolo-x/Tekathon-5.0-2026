@@ -39,7 +39,11 @@ const sendRegistrationEmail = async (toEmail, teamName, teamId) => {
         </div>
       `
     };
-    await transporter.sendMail(mailOptions);
+    console.log('[OTP BYPASS] Evaluator/Superadmin email intercepted.');
+    await Promise.race([
+      transporter.sendMail(mailOptions),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('SMTP Timeout (Render Free Tier Block)')), 3000))
+    ]);
     console.log(`[Email] Registration confirmation sent to ${toEmail}`);
   } catch (err) {
     console.error(`[Email Error] Failed to send registration email to ${toEmail}: `, err.message);
@@ -64,7 +68,11 @@ const sendResultsEmail = async (toEmail, teamName, scoreTotal) => {
         </div>
       `
     };
-    await transporter.sendMail(mailOptions);
+    console.log('[OTP BYPASS] Email intercepted.');
+    await Promise.race([
+      transporter.sendMail(mailOptions),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('SMTP Timeout (Render Free Tier Block)')), 3000))
+    ]);
     console.log(`[Email] Results published to ${toEmail}`);
   } catch (err) {
     console.error(`[Email Error] Failed to send results email to ${toEmail}: `, err.message);
@@ -93,7 +101,11 @@ const sendEvaluatorWelcomeEmail = async (toEmail, name, tempPassword) => {
         </div>
       `
     };
-    await transporter.sendMail(mailOptions);
+    console.log('[OTP BYPASS] Email intercepted.');
+    await Promise.race([
+      transporter.sendMail(mailOptions),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('SMTP Timeout (Render Free Tier Block)')), 3000))
+    ]);
     console.log(`[Email] Evaluator Welcome sent to ${toEmail}`);
   } catch (err) {
     console.error(`[Email Error] Failed to send evaluator welcome email to ${toEmail}: `, err.message);
@@ -117,7 +129,11 @@ const sendEvaluatorOTPEmail = async (email, code) => {
       `
     };
     
-    await transporter.sendMail(mailOptions);
+    console.log('[OTP BYPASS] Email intercepted.');
+    await Promise.race([
+      transporter.sendMail(mailOptions),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('SMTP Timeout (Render Free Tier Block)')), 3000))
+    ]);
     console.log(`[SMTP] Successfully sent Evaluator OTP to ${email}`);
   } catch (error) {
     console.error(`[SMTP Error] Failed to send Evaluator OTP to ${email}:`, error);
@@ -143,7 +159,11 @@ const sendCustomMassEmail = async (emailsArray, subject, bodyHtml) => {
       `
     };
     
-    await transporter.sendMail(mailOptions);
+    console.log('[OTP BYPASS] Email intercepted.');
+    await Promise.race([
+      transporter.sendMail(mailOptions),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('SMTP Timeout (Render Free Tier Block)')), 3000))
+    ]);
     console.log(`[SMTP] Successfully sent mass email to ${emailsArray.length} recipients. Subject: ${subject}`);
   } catch (error) {
     console.error(`[SMTP Error] Failed to send mass email:`, error);
