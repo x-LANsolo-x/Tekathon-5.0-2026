@@ -72,6 +72,7 @@ app.use('/api/evaluator/verify-otp', authLimiter);
 app.use('/api/superadmin/login', authLimiter);
 
 // Session setup for evaluators and superadmin
+app.set('trust proxy', 1); // trust first proxy for secure cookies on Render
 app.use(session({
   secret: process.env.SESSION_SECRET || 'super-secret-key-tekathon5',
   resave: false,
@@ -79,7 +80,7 @@ app.use(session({
   cookie: { 
     maxAge: 3600000, // 1 hour
     httpOnly: true,
-    sameSite: 'lax',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     secure: process.env.NODE_ENV === 'production' 
   } 
 }));
