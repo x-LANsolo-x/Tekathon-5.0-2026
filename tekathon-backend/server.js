@@ -90,6 +90,11 @@ app.use('/api/participant', participantRoutes);
 app.use('/api/evaluator', evaluatorRoutes);
 app.use('/api/superadmin', superadminRoutes);
 
+// Health Check for UptimeRobot
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'active', time: new Date() });
+});
+
 // Server Connection (Database is Google Sheets now)
 const PORT = process.env.PORT || 5000;
 
