@@ -6,6 +6,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_AP
 export default function ParticipantPortal() {
     const [currentView, setCurrentView] = useState('home');
     const [toast, setToast] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const [toastClass, setToastClass] = useState('');
     const [authEmail, setAuthEmail] = useState('');
     const [dashboardData, setDashboardData] = useState(null);
@@ -209,6 +210,7 @@ export default function ParticipantPortal() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             const res = await fetch(`${BASE_URL}/login`, {
                 method: 'POST',
@@ -226,6 +228,8 @@ export default function ParticipantPortal() {
             }
         } catch(err) {
             showToast('Connection failed. Ensure backend is running.', 'error');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -254,6 +258,8 @@ export default function ParticipantPortal() {
             }
         } catch(err) {
             showToast('Connection failed.', 'error');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -276,6 +282,8 @@ export default function ParticipantPortal() {
             }
         } catch(err) {
             showToast('Connection failed.', 'error');
+        } finally {
+            setIsLoading(false);
         }
     };
 
