@@ -3,8 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-const { Resend } = require('resend');
-const resend = new Resend(process.env.RESEND_API_KEY);
+const fetch = require('node-fetch');
 const { appendTeam, getTeams, createTeamLeader, getTeamLeaderByEmail, updateTeamLeaderPassword } = require('../services/supabase');
 const { sendRegistrationEmail } = require('../services/emailService');
 const { uploadToDrive, createFolder } = require('../services/googleDrive');
@@ -41,28 +40,34 @@ const otpStore = new Map(); // email -> { code, leaderId, expiry }
 // Real email function
 
 // Real email function via Resend API
+
+// Real email function via Google Apps Script (100% Free, Bypasses Render Block)
 async function sendOTPEmail(email, code) {
   try {
-    const { data, error } = await resend.emails.send({
-      from: 'Tekathon 5.0 <onboarding@resend.dev>',
-      to: email,
-      subject: 'Tekathon 5.0 - Login Verification Code',
-      html: `
-        <div style="font-family: Arial, sans-serif; background-color: #0d0e12; color: #ffffff; padding: 30px; text-align: center; border: 2px solid #ff003c; border-radius: 10px;">
-          <h2 style="color: #ff003c;">Tekathon 5.0</h2>
-          <p>Your session initialization code is:</p>
-          <h1 style="letter-spacing: 5px; font-size: 36px; color: #00d2ff; background: rgba(0,210,255,0.1); padding: 10px; display: inline-block; border-radius: 8px;">${code}</h1>
-          <p style="margin-top: 20px;">This code will expire in 10 minutes.</p>
-        </div>
-      `
+    const res = await fetch('https://script.google.com/macros/s/AKfycbynC5sZmMjsZm_gAyG0kPGVATpgaIppz70SODSV5n6Bz0BxSiImBYablRqDmfYX7IlHyg/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        to: email,
+        subject: 'Tekathon 5.0 - Login Verification Code',
+        html: `
+          <div style="font-family: Arial, sans-serif; background-color: #0d0e12; color: #ffffff; padding: 30px; text-align: center; border: 2px solid #ff003c; border-radius: 10px;">
+            <h2 style="color: #ff003c;">Tekathon 5.0</h2>
+            <p>Your session initialization code is:</p>
+            <h1 style="letter-spacing: 5px; font-size: 36px; color: #00d2ff; background: rgba(0,210,255,0.1); padding: 10px; display: inline-block; border-radius: 8px;">${code}</h1>
+            <p style="margin-top: 20px;">This code will expire in 10 minutes.</p>
+          </div>
+        `
+      })
     });
-    if (error) {
-      console.error('[Resend Error]', error);
+    const data = await res.json();
+    if (data.error) {
+      console.error('[GAS Error]', data.error);
     } else {
-      console.log('Email sent via Resend:', data?.id);
+      console.log('Email sent via GAS:', email);
     }
   } catch (err) {
-    console.error('[SMTP Background Error]', err);
+    console.error('[GAS Background Error]', err);
   }
 }
 
