@@ -3,7 +3,8 @@ const router = express.Router();
 const multer = require('multer');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
+const resend = new Resend(process.env.RESEND_API_KEY);
 const { appendTeam, getTeams, createTeamLeader, getTeamLeaderByEmail, updateTeamLeaderPassword } = require('../services/supabase');
 const { sendRegistrationEmail } = require('../services/emailService');
 const { uploadToDrive, createFolder } = require('../services/googleDrive');
@@ -35,21 +36,15 @@ const requireParticipantAuth = (req, res, next) => {
 const otpStore = new Map(); // email -> { code, leaderId, expiry }
 
 // Nodemailer Transporter Setup
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: process.env.SMTP_PORT || 465,
-  secure: true, // true for 465, false for other ports
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+
 
 // Real email function
+
+// Real email function via Resend API
 async function sendOTPEmail(email, code) {
   try {
-    const mailOptions = {
-      from: `"Tekathon 5.0" <${process.env.SMTP_USER}>`,
+    const { data, error } = await resend.emails.send({
+      from: 'Tekathon 5.0 <onboarding@resend.dev>',
       to: email,
       subject: 'Tekathon 5.0 - Login Verification Code',
       html: `
@@ -58,22 +53,16 @@ async function sendOTPEmail(email, code) {
           <p>Your session initialization code is:</p>
           <h1 style="letter-spacing: 5px; font-size: 36px; color: #00d2ff; background: rgba(0,210,255,0.1); padding: 10px; display: inline-block; border-radius: 8px;">${code}</h1>
           <p style="margin-top: 20px;">This code will expire in 10 minutes.</p>
-          <p style="font-size: 12px; color: #888;">If you did not request this, please ignore this email.</p>
         </div>
       `
-    };
-    
-    console.log('[OTP BYPASS] OTP for ' + email + ' is: ' + code);
-    // Add a strict 3-second timeout to prevent Render from hanging
-    await Promise.race([
-      transporter.sendMail(mailOptions),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('SMTP Timeout (Render Free Tier Block)')), 3000))
-    ]);
-    console.log(`[SMTP] Successfully sent OTP to ${email}`);
-  } catch (error) {
-    console.error(`[SMTP Error] Failed to send OTP to ${email}:`, error);
-    // Still log it for dev fallback in case SMTP isn't configured
-    console.log(`\n\n--- FALLBACK OTP for ${email} is: ${code} ---\n\n`);
+    });
+    if (error) {
+      console.error('[Resend Error]', error);
+    } else {
+      console.log('Email sent via Resend:', data?.id);
+    }
+  } catch (err) {
+    console.error('[SMTP Background Error]', err);
   }
 }
 
