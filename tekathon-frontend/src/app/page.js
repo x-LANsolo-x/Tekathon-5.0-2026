@@ -409,6 +409,14 @@ export default function ParticipantPortal() {
                 )}
             </div>
 
+            {(isLoading || isSubmitting) && (
+                <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(10,12,18,0.9)', zIndex: 9999, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backdropFilter: 'blur(10px)' }}>
+                    <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: '4rem', color: 'var(--primary-red)', marginBottom: '1.5rem', filter: 'drop-shadow(0 0 10px rgba(255,0,60,0.5))' }}></i>
+                    <h2 style={{ color: '#fff', letterSpacing: '4px', textTransform: 'uppercase' }}>{isSubmitting ? 'Transmitting Data...' : 'Authenticating...'}</h2>
+                    <p style={{ color: 'var(--primary-blue)', marginTop: '0.5rem', fontStyle: 'italic' }}>Please wait while we establish a secure connection.</p>
+                </div>
+            )}
+
             <nav className="ti-navbar">
                 <div className="ti-logo" style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={() => window.location.hash = ''}>
                     <img src="/cu-logo-white.png" alt="CU Logo" style={{ height: '55px', width: 'auto', marginRight: '1rem', borderRight: '1px solid rgba(255,255,255,0.2)', paddingRight: '1rem' }} />
