@@ -32,7 +32,7 @@ export default function EvaluatorPanel() {
 
   const fetchTeams = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/evaluator/teams');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`);
       const data = await res.json();
       if(data.success) {
         setTeams(data.teams);
@@ -76,7 +76,7 @@ export default function EvaluatorPanel() {
       return alert("New passwords do not match.");
     }
     try {
-      const res = await fetch('http://localhost:5000/api/evaluator/password', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ currentPassword: passwordForm.currentPassword, newPassword: passwordForm.newPassword })
@@ -96,7 +96,7 @@ export default function EvaluatorPanel() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5000/api/evaluator/login', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -118,7 +118,7 @@ export default function EvaluatorPanel() {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5000/api/evaluator/verify-otp', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp })
@@ -141,7 +141,7 @@ export default function EvaluatorPanel() {
   const handleResetPassword = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5000/api/evaluator/reset-password', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp, newPassword })
@@ -163,7 +163,7 @@ export default function EvaluatorPanel() {
   const handleLogout = async (bypassConfirm = false) => {
     if (!bypassConfirm && !window.confirm("Are you sure you want to log out?")) return;
     try {
-      await fetch('http://localhost:5000/api/evaluator/logout', { method: 'POST' });
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, { method: 'POST' });
       window.location.href = '/';
     } catch (err) {
       window.location.href = '/';
@@ -179,7 +179,7 @@ export default function EvaluatorPanel() {
 
   const submitEval = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/evaluator/score', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ teamId: evalTeam.teamId, ...scores })
@@ -202,7 +202,7 @@ export default function EvaluatorPanel() {
   const handleFlagTeam = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:5000/api/evaluator/teams/${evalTeam.teamId}/flag`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ reason: flagReason })

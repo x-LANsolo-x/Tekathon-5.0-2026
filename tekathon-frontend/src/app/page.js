@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 
-const BASE_URL = 'http://localhost:5000/api/participant';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/api/participant` : 'http://localhost:5000/api/participant';
 
 export default function ParticipantPortal() {
     const [currentView, setCurrentView] = useState('home');
