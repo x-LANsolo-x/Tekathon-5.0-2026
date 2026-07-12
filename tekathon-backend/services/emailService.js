@@ -1,27 +1,33 @@
-const fetch = require('node-fetch');
+const nodemailer = require('nodemailer');
 
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbyu6xqnCWuzxxPboyLc-HoItcZHpo0g4gPxUAWGHfI4noZL5-PAi6Lil53uUEcAqaCW/exec';
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: process.env.SMTP_PORT || 465,
+  secure: true,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
-async function sendGAS(toEmail, subject, htmlBody) {
+async function sendEmail(toEmail, subject, htmlBody) {
   try {
-    const res = await fetch(GAS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        to: toEmail,
-        subject: subject,
-        html: htmlBody
-      })
-    });
-    const data = await res.json();
-    if(data.error) console.error('[GAS Error]', data.error);
+    const mailOptions = {
+      from: `"Tekathon 5.0" <${process.env.SMTP_USER}>`,
+      to: toEmail,
+      subject: subject,
+      html: htmlBody
+    };
+    await transporter.sendMail(mailOptions);
+    console.log('Email sent via Nodemailer to:', toEmail);
   } catch (error) {
-    console.error('[GAS Catch Error]', error);
+    console.error('[Nodemailer Catch Error]', error);
   }
 }
 
+
 async function sendRegistrationEmail(toEmail, teamName, teamId) {
-  await sendGAS(
+  await sendEmail(
     toEmail,
     'Tekathon 5.0 - Registration Successful',
     `<div style="font-family: Arial, sans-serif; background-color: #0d0e12; color: #ffffff; padding: 30px; text-align: center; border: 2px solid #00d2ff; border-radius: 10px;">
@@ -33,7 +39,7 @@ async function sendRegistrationEmail(toEmail, teamName, teamId) {
 }
 
 async function sendEvaluatorOTPEmail(email, code) {
-  await sendGAS(
+  await sendEmail(
     email,
     'Tekathon 5.0 Evaluator - Login Code',
     `<div style="font-family: Arial, sans-serif; background-color: #0d0e12; color: #ffffff; padding: 30px; text-align: center; border: 2px solid #00ff88; border-radius: 10px;">
@@ -45,7 +51,7 @@ async function sendEvaluatorOTPEmail(email, code) {
 }
 
 async function sendEvaluatorWelcomeEmail(email, name, password) {
-  await sendGAS(
+  await sendEmail(
     email,
     'Welcome to Tekathon 5.0 Evaluator Panel',
     `<div style="font-family: Arial, sans-serif; background-color: #0d0e12; color: #ffffff; padding: 30px; border: 2px solid #00ff88; border-radius: 10px;">
@@ -59,7 +65,7 @@ async function sendEvaluatorWelcomeEmail(email, name, password) {
 }
 
 async function sendResultsEmail(toEmail, teamName, score) {
-  await sendGAS(
+  await sendEmail(
     toEmail,
     'Tekathon 5.0 - Your Results are Live!',
     `<div style="font-family: Arial, sans-serif; background-color: #0d0e12; color: #ffffff; padding: 30px; text-align: center; border: 2px solid #ff003c; border-radius: 10px;">
@@ -74,7 +80,7 @@ async function sendResultsEmail(toEmail, teamName, score) {
 
 async function sendCustomMassEmail(emailsArray, subject, htmlBody) {
   for(const email of emailsArray) {
-      await sendGAS(email, subject, htmlBody);
+      await sendEmail(email, subject, htmlBody);
   }
 }
 
