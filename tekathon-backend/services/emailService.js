@@ -1,27 +1,23 @@
-const nodemailer = require('nodemailer');
+const fetch = require('node-fetch');
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: process.env.SMTP_PORT || 465,
-  secure: true,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbycHB1nium7-uNha7q-hO5xqs6h1nMWNEE8V5jq0fhxSdQ33cC6-RWxZ_kh2i9DZcIr5Q/exec';
 
 async function sendEmail(toEmail, subject, htmlBody) {
   try {
-    const mailOptions = {
-      from: `"Tekathon 5.0" <${process.env.SMTP_USER}>`,
-      to: toEmail,
-      subject: subject,
-      html: htmlBody
-    };
-    await transporter.sendMail(mailOptions);
-    console.log('Email sent via Nodemailer to:', toEmail);
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        to: toEmail,
+        subject: subject,
+        html: htmlBody
+      })
+    });
+    const data = await res.json();
+    if(data.error) console.error('[GAS Error]', data.error);
+    else console.log('Email sent via GAS to:', toEmail);
   } catch (error) {
-    console.error('[Nodemailer Catch Error]', error);
+    console.error('[GAS Catch Error]', error);
   }
 }
 

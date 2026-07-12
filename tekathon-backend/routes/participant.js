@@ -34,38 +34,33 @@ const requireParticipantAuth = (req, res, next) => {
 // --- OTP Store (Temporary Memory) ---
 const otpStore = new Map(); // email -> { code, leaderId, expiry }
 
-// Nodemailer Transporter Setup
-const nodemailer = require('nodemailer');
-
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: process.env.SMTP_PORT || 465,
-  secure: true,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
-
+// Real email function via Google Apps Script (100% Free, Bypasses Render Block)
 async function sendOTPEmail(email, code) {
   try {
-    const mailOptions = {
-      from: `"Tekathon 5.0" <${process.env.SMTP_USER}>`,
-      to: email,
-      subject: 'Tekathon 5.0 - Login Verification Code',
-      html: `
-        <div style="font-family: Arial, sans-serif; background-color: #0d0e12; color: #ffffff; padding: 30px; text-align: center; border: 2px solid #ff003c; border-radius: 10px;">
-          <h2 style="color: #ff003c;">Tekathon 5.0</h2>
-          <p>Your session initialization code is:</p>
-          <h1 style="letter-spacing: 5px; font-size: 36px; color: #00d2ff; background: rgba(0,210,255,0.1); padding: 10px; display: inline-block; border-radius: 8px;">${code}</h1>
-          <p style="margin-top: 20px;">This code will expire in 10 minutes.</p>
-        </div>
-      `
-    };
-    await transporter.sendMail(mailOptions);
-    console.log('OTP Email sent via Nodemailer to:', email);
+    const res = await fetch('https://script.google.com/macros/s/AKfycbycHB1nium7-uNha7q-hO5xqs6h1nMWNEE8V5jq0fhxSdQ33cC6-RWxZ_kh2i9DZcIr5Q/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        to: email,
+        subject: 'Tekathon 5.0 - Login Verification Code',
+        html: `
+          <div style="font-family: Arial, sans-serif; background-color: #0d0e12; color: #ffffff; padding: 30px; text-align: center; border: 2px solid #ff003c; border-radius: 10px;">
+            <h2 style="color: #ff003c;">Tekathon 5.0</h2>
+            <p>Your session initialization code is:</p>
+            <h1 style="letter-spacing: 5px; font-size: 36px; color: #00d2ff; background: rgba(0,210,255,0.1); padding: 10px; display: inline-block; border-radius: 8px;">${code}</h1>
+            <p style="margin-top: 20px;">This code will expire in 10 minutes.</p>
+          </div>
+        `
+      })
+    });
+    const data = await res.json();
+    if (data.error) {
+      console.error('[GAS Error]', data.error);
+    } else {
+      console.log('Email sent via GAS to:', email);
+    }
   } catch (err) {
-    console.error('[Nodemailer Background Error]', err);
+    console.error('[GAS Background Error]', err);
   }
 }
 
